@@ -1,0 +1,119 @@
+.interview-subtitle {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-5);
+}
+
+.qa-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.qa-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+}
+
+.qa-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.qa-number {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.qa-question {
+  color: var(--color-text-primary);
+  font-weight: 500;
+  margin-bottom: var(--space-3);
+}
+
+.qa-textarea {
+  width: 100%;
+  padding: var(--space-3);
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  resize: vertical;
+}
+
+.qa-textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.qa-hint {
+  margin-top: var(--space-3);
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.qa-score-badge {
+  flex-shrink: 0;
+  background-color: var(--color-accent-muted);
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 0.875rem;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+}
+
+.qa-answer-label,
+.qa-feedback-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-1);
+}
+
+.qa-answer {
+  color: var(--color-text-secondary);
+}
+
+.qa-feedback {
+  color: var(--color-text-primary);
+}
+
+.overall-score-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  text-align: center;
+  margin-bottom: var(--space-6);
+  box-shadow: var(--shadow-glow);
+}
+
+.overall-score-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+}
+
+.overall-score-value {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  color: var(--color-accent);
+  margin: var(--space-2) 0;
+}
+
+.overall-feedback {
+  color: var(--color-text-primary);
+  max-width: 480px;
+  margin: 0 auto;
+}

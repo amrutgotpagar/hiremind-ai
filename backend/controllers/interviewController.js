@@ -176,4 +176,27 @@ const getInterview = async (req, res, next) => {
   }
 };
 
-module.exports = { startInterview, submitAnswers, evaluateInterview, getInterview };
+// @desc    Get all interviews for the logged-in candidate (summary only, no qaPairs)
+// @route   GET /api/interviews/my
+const getMyInterviews = async (req, res, next) => {
+  try {
+    const interviews = await Interview.find({ user: req.user.id })
+      .select('-qaPairs')
+      .sort({ _id: -1 }); // most recently created first
+
+    res.status(200).json({
+      success: true,
+      interviews,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  startInterview,
+  submitAnswers,
+  evaluateInterview,
+  getInterview,
+  getMyInterviews,
+};

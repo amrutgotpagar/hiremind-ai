@@ -15,3 +15,7 @@ export function evaluateInterview(interviewId) {
 export function getInterview(interviewId) {
   return api.get(`/interviews/${interviewId}`)
 }
+
+export function getMyInterviews() {
+  return api.get('/interviews/my')
+}

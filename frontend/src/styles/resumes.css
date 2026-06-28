@@ -15,6 +15,7 @@
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md), var(--shadow-inset-top);
   padding: var(--space-6);
   margin-bottom: var(--space-6);
 }
@@ -25,7 +26,7 @@
   padding: var(--space-6);
   text-align: center;
   cursor: pointer;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .upload-drop-zone:hover {
@@ -51,6 +52,14 @@
   border: none;
   border-radius: var(--radius-md);
   font-weight: 600;
+  transition: transform var(--transition-base), box-shadow var(--transition-base),
+    background-color var(--transition-base);
+}
+
+.upload-button:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--glow-md);
 }
 
 .upload-button:disabled {
@@ -69,6 +78,14 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: var(--space-4);
+  transition: border-color var(--transition-base), transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.resume-item:hover {
+  border-color: var(--color-border-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .resume-row {
@@ -93,17 +110,17 @@
 }
 
 .status-uploaded {
-  background-color: rgba(154, 164, 184, 0.15);
+  background-color: rgba(161, 161, 170, 0.15);
   color: var(--color-text-secondary);
 }
 
 .status-parsed {
-  background-color: rgba(95, 174, 128, 0.15);
+  background-color: rgba(34, 197, 94, 0.15);
   color: var(--color-success);
 }
 
 .status-failed {
-  background-color: rgba(210, 105, 107, 0.15);
+  background-color: rgba(255, 43, 69, 0.15);
   color: var(--color-error);
 }
 
@@ -115,10 +132,12 @@
   color: var(--color-accent);
   font-size: 0.8125rem;
   font-weight: 600;
+  transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .generate-button:hover:not(:disabled) {
   background-color: var(--color-accent-muted);
+  box-shadow: var(--glow-sm);
 }
 
 .generate-button:disabled {
@@ -161,4 +180,9 @@
   color: var(--color-accent);
   font-size: 0.875rem;
   cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.refresh-link:hover {
+  color: var(--color-accent-hover);
 }

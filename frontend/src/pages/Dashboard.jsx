@@ -1,11 +1,12 @@
 import { useAuth } from '../context/AuthContext'
-import { Link } from 'react-router-dom'
+import HRDashboardStats from '../components/HRDashboardStats'
+import CandidateDashboardStats from '../components/CandidateDashboardStats'
 
 function Dashboard() {
   const { user, logout } = useAuth()
 
   return (
-    <div style={{ padding: 'var(--space-7)', maxWidth: '720px', margin: '0 auto' }}>
+    <div style={{ padding: 'var(--space-7)', maxWidth: '960px', margin: '0 auto' }}>
       <div
         style={{
           display: 'flex',
@@ -38,14 +39,9 @@ function Dashboard() {
         <div>
           <h3>Candidate Dashboard</h3>
           <p style={{ marginTop: 'var(--space-3)' }}>
-            Upload your resume, generate interview questions, and practice with AI feedback.
+            Your resume, interview activity, and AI feedback at a glance.
           </p>
-          <Link
-            to="/resumes"
-            style={{ display: 'inline-block', marginTop: 'var(--space-4)' }}
-          >
-            Go to My Resumes →
-          </Link>
+          <CandidateDashboardStats />
         </div>
       )}
 
@@ -53,12 +49,9 @@ function Dashboard() {
         <div>
           <h3>HR Dashboard</h3>
           <p style={{ marginTop: 'var(--space-3)' }}>
-            View candidates, review interview results, and see rankings.
+            Overview of candidates, interview performance, and rankings.
           </p>
-          <div style={{ display: 'flex', gap: 'var(--space-5)', marginTop: 'var(--space-4)' }}>
-            <Link to="/candidates">View Candidates →</Link>
-            <Link to="/rankings">View Rankings →</Link>
-          </div>
+          <HRDashboardStats />
         </div>
       )}
     </div>

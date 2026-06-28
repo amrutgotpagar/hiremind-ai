@@ -1,0 +1,79 @@
+.candidate-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.candidate-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.candidate-row:hover {
+  border-color: var(--color-accent);
+  background-color: var(--color-surface-hover);
+}
+
+.candidate-name {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.candidate-email {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  margin-top: var(--space-1);
+}
+
+.rank-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.rank-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  text-decoration: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.rank-row:hover {
+  border-color: var(--color-accent);
+  background-color: var(--color-surface-hover);
+}
+
+.rank-row-top {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-glow);
+}
+
+.rank-position {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--color-accent);
+  min-width: 40px;
+}
+
+.rank-info {
+  flex: 1;
+}
+
+.rank-score-badge {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--color-text-primary);
+  min-width: 50px;
+  text-align: right;
+}

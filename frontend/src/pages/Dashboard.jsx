@@ -34,20 +34,20 @@ function Dashboard() {
         </button>
       </div>
 
-{user?.role === 'candidate' && (
-  <div>
-    <h3>Candidate Dashboard</h3>
-    <p style={{ marginTop: 'var(--space-3)' }}>
-      Upload your resume, generate interview questions, and practice with AI feedback.
-    </p>
-    <Link
-      to="/resumes"
-      style={{ display: 'inline-block', marginTop: 'var(--space-4)' }}
-    >
-      Go to My Resumes →
-    </Link>
-  </div>
-)}
+      {user?.role === 'candidate' && (
+        <div>
+          <h3>Candidate Dashboard</h3>
+          <p style={{ marginTop: 'var(--space-3)' }}>
+            Upload your resume, generate interview questions, and practice with AI feedback.
+          </p>
+          <Link
+            to="/resumes"
+            style={{ display: 'inline-block', marginTop: 'var(--space-4)' }}
+          >
+            Go to My Resumes →
+          </Link>
+        </div>
+      )}
 
       {user?.role === 'hr' && (
         <div>
@@ -55,6 +55,10 @@ function Dashboard() {
           <p style={{ marginTop: 'var(--space-3)' }}>
             View candidates, review interview results, and see rankings.
           </p>
+          <div style={{ display: 'flex', gap: 'var(--space-5)', marginTop: 'var(--space-4)' }}>
+            <Link to="/candidates">View Candidates →</Link>
+            <Link to="/rankings">View Rankings →</Link>
+          </div>
         </div>
       )}
     </div>

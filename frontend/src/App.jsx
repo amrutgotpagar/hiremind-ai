@@ -5,6 +5,9 @@ import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
 import Resumes from './pages/Resumes'
 import Interview from './pages/Interview'
+import Candidates from './pages/Candidates'
+import CandidateDetail from './pages/CandidateDetail'
+import Rankings from './pages/Rankings'
 import ProtectedRoute from './components/ProtectedRoute'
 import GuestRoute from './components/GuestRoute'
 
@@ -50,6 +53,30 @@ function App() {
           element={
             <ProtectedRoute allowedRoles={['candidate']}>
               <Interview />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/candidates"
+          element={
+            <ProtectedRoute allowedRoles={['hr']}>
+              <Candidates />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/candidates/:id"
+          element={
+            <ProtectedRoute allowedRoles={['hr']}>
+              <CandidateDetail />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/rankings"
+          element={
+            <ProtectedRoute allowedRoles={['hr']}>
+              <Rankings />
             </ProtectedRoute>
           }
         />

@@ -5,6 +5,7 @@ import './styles/global.css'
 import './styles/forms.css'
 import './styles/resumes.css'
 import './styles/interview.css'
+import './styles/hr.css'
 import { AuthProvider } from './context/AuthContext.jsx'
 import App from './App.jsx'
 

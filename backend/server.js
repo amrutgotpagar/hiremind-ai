@@ -3,6 +3,9 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
+const resumeRoutes = require('./routes/resumeRoutes');
+const interviewRoutes = require('./routes/interviewRoutes');
+const hrRoutes = require('./routes/hrRoutes');
 const errorHandler = require('./middleware/errorHandler');
 
 // Connect to MongoDB
@@ -10,8 +13,26 @@ connectDB();
 
 const app = express();
 
-// Core middleware
-app.use(cors());
+// Allowed origins: local dev + deployed frontend
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://hiremind-ai-gamma.vercel.app',
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Allow requests with no origin (e.g. curl, Postman, server-to-server)
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 // Test route
@@ -21,24 +42,12 @@ app.get('/api/health', (req, res) => {
 
 // Feature routes
 app.use('/api/auth', authRoutes);
-
-
-const resumeRoutes = require('./routes/resumeRoutes');
-// ...
 app.use('/api/resumes', resumeRoutes);
-
-const interviewRoutes = require('./routes/interviewRoutes');
-// ...
 app.use('/api/interviews', interviewRoutes);
-
-const hrRoutes = require('./routes/hrRoutes');
-// ...
 app.use('/api/hr', hrRoutes);
 
 // Error handler — must be last
 app.use(errorHandler);
-
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

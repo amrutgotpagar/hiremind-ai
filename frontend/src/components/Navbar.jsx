@@ -16,6 +16,11 @@ function Navbar() {
         <Link to="/#how-it-works" className="navbar-link navbar-link-section">
           How It Works
         </Link>
+        {user?.role === 'candidate' && (
+          <Link to="/ats" className="navbar-link">
+            ATS Checker
+          </Link>
+        )}
         {user ? (
           <Link to="/dashboard" className="navbar-cta">
             Dashboard

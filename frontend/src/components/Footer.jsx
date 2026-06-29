@@ -13,6 +13,9 @@ function Footer() {
           </p>
         </div>
         <div className="footer-links">
+          <Link to="/" className="navbar-link">
+            Home
+          </Link>
           <Link to="/#features" className="navbar-link">
             Features
           </Link>

@@ -66,8 +66,9 @@ function CandidateDashboardStats() {
         </div>
       </div>
 
-      <div style={{ marginBottom: 'var(--space-6)' }}>
+      <div style={{ display: 'flex', gap: 'var(--space-5)', marginBottom: 'var(--space-6)' }}>
         <Link to="/resumes">Go to My Resumes →</Link>
+        <Link to="/ats">Run ATS Check →</Link>
       </div>
 
       {recentInterviews.length > 0 ? (

@@ -5,6 +5,8 @@ import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
 import Resumes from './pages/Resumes'
 import Interview from './pages/Interview'
+import AtsChecker from './pages/AtsChecker'
+import AtsReport from './pages/AtsReport'
 import Candidates from './pages/Candidates'
 import CandidateDetail from './pages/CandidateDetail'
 import Rankings from './pages/Rankings'
@@ -53,6 +55,22 @@ function App() {
           element={
             <ProtectedRoute allowedRoles={['candidate']}>
               <Interview />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/ats"
+          element={
+            <ProtectedRoute allowedRoles={['candidate']}>
+              <AtsChecker />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/ats/:id"
+          element={
+            <ProtectedRoute allowedRoles={['candidate']}>
+              <AtsReport />
             </ProtectedRoute>
           }
         />

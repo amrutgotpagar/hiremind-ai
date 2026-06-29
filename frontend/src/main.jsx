@@ -9,6 +9,7 @@ import './styles/resumes.css'
 import './styles/interview.css'
 import './styles/hr.css'
 import './styles/dashboard-stats.css'
+import './styles/ats.css'
 import { AuthProvider } from './context/AuthContext.jsx'
 import App from './App.jsx'
 

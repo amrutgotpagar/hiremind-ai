@@ -32,12 +32,37 @@ function Rankings() {
     }
   }
 
+  const numericScores = rankings
+    .map((item) => getRankingFields(item).score)
+    .filter((s) => typeof s === 'number')
+  const averageScore = numericScores.length
+    ? Math.round(numericScores.reduce((sum, s) => sum + s, 0) / numericScores.length)
+    : null
+  const topScore = numericScores.length ? Math.max(...numericScores) : null
+
   return (
     <div className="page-container">
       <div className="page-header">
         <h2>Rankings</h2>
         <Link to="/dashboard">Back to Dashboard</Link>
       </div>
+
+      {!loading && !error && rankings.length > 0 && (
+        <div className="stat-grid">
+          <div className="stat-card">
+            <p className="stat-label">Ranked Candidates</p>
+            <p className="stat-value">{rankings.length}</p>
+          </div>
+          <div className="stat-card">
+            <p className="stat-label">Top Score</p>
+            <p className="stat-value">{topScore !== null ? topScore : '—'}</p>
+          </div>
+          <div className="stat-card">
+            <p className="stat-label">Average Score</p>
+            <p className="stat-value">{averageScore !== null ? averageScore : '—'}</p>
+          </div>
+        </div>
+      )}
 
       {loading ? (
         <p>Loading...</p>

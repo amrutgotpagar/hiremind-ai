@@ -12,6 +12,7 @@
   font-size: 1.375rem;
   color: var(--color-text-primary);
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .navbar-logo:hover {
@@ -32,6 +33,7 @@
   color: var(--color-text-secondary);
   font-weight: 500;
   font-size: 0.9375rem;
+  white-space: nowrap;
 }
 
 .navbar-link:hover {
@@ -45,6 +47,7 @@
   border-radius: var(--radius-md);
   font-weight: 600;
   font-size: 0.9375rem;
+  white-space: nowrap;
   transition: background-color var(--transition-base), transform var(--transition-base),
     box-shadow var(--transition-base);
 }
@@ -54,4 +57,31 @@
   color: var(--color-accent-text);
   transform: translateY(-1px);
   box-shadow: var(--glow-sm);
+}
+
+@media (max-width: 640px) {
+  .navbar-link-section {
+    display: none;
+  }
+
+  .navbar {
+    padding: var(--space-4);
+  }
+
+  .navbar-logo {
+    font-size: 1.125rem;
+  }
+
+  .navbar-links {
+    gap: var(--space-3);
+  }
+
+  .navbar-link {
+    font-size: 0.875rem;
+  }
+
+  .navbar-cta {
+    padding: var(--space-2) var(--space-4);
+    font-size: 0.875rem;
+  }
 }

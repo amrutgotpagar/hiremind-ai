@@ -100,12 +100,41 @@ function Resumes() {
     }
   }
 
+  const parsedCount = resumes.filter((r) => r.status === 'parsed').length
+  const processingCount = resumes.filter((r) => r.status === 'uploaded').length
+  const failedCount = resumes.filter((r) => r.status === 'failed').length
+
   return (
     <div className="page-container">
       <div className="page-header">
         <h2>My Resumes</h2>
         <Link to="/dashboard">Back to Dashboard</Link>
       </div>
+
+      {resumes.length > 0 && (
+        <div className="stat-grid">
+          <div className="stat-card">
+            <p className="stat-label">Total Resumes</p>
+            <p className="stat-value">{resumes.length}</p>
+          </div>
+          <div className="stat-card">
+            <p className="stat-label">Parsed</p>
+            <p className="stat-value">{parsedCount}</p>
+          </div>
+          <div className="stat-card">
+            <p className="stat-label">Processing</p>
+            <p className="stat-value">{processingCount}</p>
+          </div>
+          {failedCount > 0 && (
+            <div className="stat-card">
+              <p className="stat-label">Failed</p>
+              <p className="stat-value" style={{ color: 'var(--color-error)' }}>
+                {failedCount}
+              </p>
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="upload-card">
         <div className="upload-drop-zone" onClick={() => fileInputRef.current?.click()}>

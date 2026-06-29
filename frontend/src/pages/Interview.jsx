@@ -83,9 +83,18 @@ function Interview() {
 
   if (!interview) return null
 
-  const allAnswered = interview.qaPairs?.every(
-    (qa) => (answers[qa._id] || '').trim().length > 0
-  )
+  const totalQuestions = interview.qaPairs?.length || 0
+  const answeredCount = interview.qaPairs
+    ? interview.qaPairs.filter((qa) => (answers[qa._id] || '').trim().length > 0).length
+    : 0
+  const answeredPercent = totalQuestions ? Math.round((answeredCount / totalQuestions) * 100) : 0
+  const allAnswered = answeredCount === totalQuestions && totalQuestions > 0
+
+  const numericScores = interview.qaPairs
+    ? interview.qaPairs.map((qa) => qa.score).filter((s) => typeof s === 'number')
+    : []
+  const highestScore = numericScores.length ? Math.max(...numericScores) : null
+  const lowestScore = numericScores.length ? Math.min(...numericScores) : null
 
   return (
     <div className="page-container">
@@ -99,6 +108,27 @@ function Interview() {
           <p className="interview-subtitle">
             Answer each question below, then submit for AI feedback.
           </p>
+
+          <div style={{ marginBottom: 'var(--space-5)' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                marginBottom: 'var(--space-2)',
+              }}
+            >
+              <span style={{ fontSize: '0.8125rem', color: 'var(--color-text-secondary)' }}>
+                {answeredCount} of {totalQuestions} answered
+              </span>
+              <span style={{ fontSize: '0.8125rem', color: 'var(--color-text-muted)' }}>
+                {answeredPercent}%
+              </span>
+            </div>
+            <div className="distribution-bar-track">
+              <div className="distribution-bar-fill" style={{ width: `${answeredPercent}%` }} />
+            </div>
+          </div>
+
           <div className="qa-list">
             {interview.qaPairs.map((qa, i) => (
               <div key={qa._id} className="qa-card">
@@ -150,6 +180,23 @@ function Interview() {
               <p className="overall-feedback">{interview.overallFeedback}</p>
             )}
           </div>
+
+          {numericScores.length > 0 && (
+            <div className="stat-grid">
+              <div className="stat-card">
+                <p className="stat-label">Questions Answered</p>
+                <p className="stat-value">{totalQuestions}</p>
+              </div>
+              <div className="stat-card">
+                <p className="stat-label">Highest Score</p>
+                <p className="stat-value">{highestScore}</p>
+              </div>
+              <div className="stat-card">
+                <p className="stat-label">Lowest Score</p>
+                <p className="stat-value">{lowestScore}</p>
+              </div>
+            </div>
+          )}
 
           <div className="qa-list">
             {interview.qaPairs.map((qa, i) => (

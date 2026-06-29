@@ -1,22 +1,29 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { getCandidates } from '../api/hr'
+import { getCandidates, getRankings } from '../api/hr'
+
+function extractScore(item) {
+  const score = item.overallScore ?? item.score ?? item.candidate?.overallScore
+  return typeof score === 'number' ? score : null
+}
 
 function Candidates() {
   const [candidates, setCandidates] = useState([])
+  const [rankings, setRankings] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
   useEffect(() => {
-    fetchCandidates()
+    fetchData()
   }, [])
 
-  async function fetchCandidates() {
+  async function fetchData() {
     setLoading(true)
     setError('')
     try {
-      const res = await getCandidates()
-      setCandidates(res.data.candidates || [])
+      const [candidatesRes, rankingsRes] = await Promise.all([getCandidates(), getRankings()])
+      setCandidates(candidatesRes.data.candidates || [])
+      setRankings(rankingsRes.data.rankings || [])
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to load candidates.')
     } finally {
@@ -24,12 +31,34 @@ function Candidates() {
     }
   }
 
+  const scores = rankings.map(extractScore).filter((s) => s !== null)
+  const averageScore = scores.length
+    ? Math.round(scores.reduce((sum, s) => sum + s, 0) / scores.length)
+    : null
+
   return (
     <div className="page-container">
       <div className="page-header">
         <h2>Candidates</h2>
         <Link to="/dashboard">Back to Dashboard</Link>
       </div>
+
+      {!loading && !error && candidates.length > 0 && (
+        <div className="stat-grid">
+          <div className="stat-card">
+            <p className="stat-label">Total Candidates</p>
+            <p className="stat-value">{candidates.length}</p>
+          </div>
+          <div className="stat-card">
+            <p className="stat-label">Evaluated Interviews</p>
+            <p className="stat-value">{rankings.length}</p>
+          </div>
+          <div className="stat-card">
+            <p className="stat-label">Average Score</p>
+            <p className="stat-value">{averageScore !== null ? averageScore : '—'}</p>
+          </div>
+        </div>
+      )}
 
       {loading ? (
         <p>Loading...</p>

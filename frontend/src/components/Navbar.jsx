@@ -10,6 +10,12 @@ function Navbar() {
         HireMind <span className="navbar-logo-accent">AI</span>
       </Link>
       <div className="navbar-links">
+        <Link to="/#features" className="navbar-link navbar-link-section">
+          Features
+        </Link>
+        <Link to="/#how-it-works" className="navbar-link navbar-link-section">
+          How It Works
+        </Link>
         {user ? (
           <Link to="/dashboard" className="navbar-cta">
             Dashboard

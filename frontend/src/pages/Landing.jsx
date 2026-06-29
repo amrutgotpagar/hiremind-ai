@@ -1,7 +1,48 @@
-import { Link } from 'react-router-dom'
+import { useEffect, Fragment } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
+
+const pipelineSteps = [
+  {
+    step: '01',
+    title: 'Upload Resume',
+    description: 'Upload your resume as a PDF or DOC file.',
+  },
+  {
+    step: '02',
+    title: 'AI Parses It',
+    description: 'We extract the text and structure from your resume automatically.',
+  },
+  {
+    step: '03',
+    title: 'AI Generates Questions',
+    description: 'Gemini reads your real experience and writes interview questions tailored to it.',
+  },
+  {
+    step: '04',
+    title: 'You Answer',
+    description: 'Answer each question in your own words, at your own pace.',
+  },
+  {
+    step: '05',
+    title: 'AI Evaluates & Scores',
+    description: 'Get an overall score plus detailed feedback on every answer.',
+  },
+]
 
 function Landing() {
+  const location = useLocation()
+
+  useEffect(() => {
+    if (location.hash) {
+      const el = document.querySelector(location.hash)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }
+  }, [location])
+
   return (
     <div>
       <Navbar />
@@ -27,7 +68,7 @@ function Landing() {
         </div>
       </section>
 
-      <section className="features">
+      <section id="features" className="features">
         <div className="feature-card">
           <span className="feature-number">01</span>
           <h3>Resume-Aware Questions</h3>
@@ -53,6 +94,25 @@ function Landing() {
           </p>
         </div>
       </section>
+
+      <section id="how-it-works" className="pipeline">
+        <p className="pipeline-eyebrow">How It Works</p>
+        <h2 className="pipeline-heading">From resume to feedback, in five steps</h2>
+        <div className="pipeline-track">
+          {pipelineSteps.map((step, i) => (
+            <Fragment key={step.step}>
+              <div className="pipeline-step">
+                <span className="pipeline-step-number">{step.step}</span>
+                <h4>{step.title}</h4>
+                <p>{step.description}</p>
+              </div>
+              {i < pipelineSteps.length - 1 && <span className="pipeline-arrow">→</span>}
+            </Fragment>
+          ))}
+        </div>
+      </section>
+
+      <Footer />
     </div>
   )
 }

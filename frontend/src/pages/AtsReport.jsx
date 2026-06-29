@@ -2,16 +2,9 @@ import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { getAtsReport } from '../api/ats'
 import ScoreRing from '../components/ScoreRing'
-
-const SECTION_LABELS = {
-  contact: 'Contact Information',
-  summary: 'Summary / Objective',
-  skills: 'Skills',
-  experience: 'Experience',
-  projects: 'Projects',
-  education: 'Education',
-  certifications: 'Certifications',
-}
+import AtsScoreConstellation from '../components/AtsScoreConstellation'
+import AtsScorecard from '../components/AtsScorecard'
+import RevealOnScroll from '../components/RevealOnScroll'
 
 function AtsReport() {
   const { id } = useParams()
@@ -79,100 +72,48 @@ function AtsReport() {
         <Link to="/ats">Run Another Check</Link>
       </div>
 
-      <div className="ats-score-grid">
-        <ScoreRing label="ATS Score" score={scores.atsScore} />
-        <ScoreRing label="Keyword Match" score={scores.keywordMatch} />
-        <ScoreRing label="Skills Coverage" score={scores.skillsCoverage} />
-        <ScoreRing label="Formatting" score={scores.formatting} />
+      <div className="ats-hero">
+        <p className="ats-hero-eyebrow">ATS Compatibility Report</p>
+        <h1 className="ats-hero-title">How your resume scores</h1>
+
+        <div className="ats-hero-ring-wrap">
+          <ScoreRing label="ATS Score" score={scores.atsScore} size={220} />
+        </div>
+
+        <p className="roadmap-pull-quote">{feedback.recruiterPerspective}</p>
       </div>
 
-      <div className="ats-sub-scores">
-        <div className="sub-score-card">
-          <p className="sub-score-value">{scores.resumeStrength}</p>
-          <p className="sub-score-label">Resume Strength</p>
-        </div>
-        <div className="sub-score-card">
-          <p className="sub-score-value">{scores.contentQuality}</p>
-          <p className="sub-score-label">Content Quality</p>
-        </div>
-        <div className="sub-score-card">
-          <p className="sub-score-value">{scores.experienceRelevance}</p>
-          <p className="sub-score-label">Experience Relevance</p>
-        </div>
-      </div>
+      <h3 className="roadmap-section-heading">Score Breakdown</h3>
+      <AtsScoreConstellation scores={scores} />
 
-      <div className="section-checklist">
-        {Object.entries(SECTION_LABELS).map(([key, label]) => (
-          <div key={key} className="section-check-item">
-            <span className={sections[key] ? 'section-check-icon-present' : 'section-check-icon-missing'}>
-              {sections[key] ? '✓' : '✕'}
-            </span>
-            <span>{label}</span>
-          </div>
-        ))}
-      </div>
+      <h3 className="roadmap-section-heading">Structure & Keywords</h3>
+      <AtsScorecard sections={sections} matchedKeywords={matchedKeywords} missingKeywords={missingKeywords} />
 
-      {(matchedKeywords.length > 0 || missingKeywords.length > 0) && (
-        <div className="keyword-columns">
-          <div className="keyword-card">
-            <p className="keyword-card-title keyword-card-title-matched">Matched Keywords</p>
-            <div className="keyword-pills">
-              {matchedKeywords.length === 0 ? (
-                <p className="empty-state">None matched</p>
-              ) : (
-                matchedKeywords.map((kw) => (
-                  <span key={kw} className="keyword-pill keyword-pill-matched">{kw}</span>
-                ))
-              )}
-            </div>
-          </div>
-          <div className="keyword-card">
-            <p className="keyword-card-title keyword-card-title-missing">Missing Keywords</p>
-            <div className="keyword-pills">
-              {missingKeywords.length === 0 ? (
-                <p className="empty-state">None missing</p>
-              ) : (
-                missingKeywords.map((kw) => (
-                  <span key={kw} className="keyword-pill keyword-pill-missing">{kw}</span>
-                ))
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      <div className="feedback-section">
-        <h3>Strengths</h3>
+      <h3 className="roadmap-section-heading">Strengths</h3>
+      <RevealOnScroll className="feedback-section">
         <ul className="feedback-list">
           {feedback.strengths.map((s, i) => <li key={i}>{s}</li>)}
         </ul>
-      </div>
+      </RevealOnScroll>
 
-      <div className="feedback-section">
-        <h3>Weaknesses</h3>
+      <h3 className="roadmap-section-heading">Weaknesses</h3>
+      <RevealOnScroll className="feedback-section">
         <ul className="feedback-list">
           {feedback.weaknesses.map((w, i) => <li key={i}>{w}</li>)}
         </ul>
-      </div>
+      </RevealOnScroll>
 
-      <div className="feedback-section">
-        <h3>Perspectives</h3>
-        <div className="perspective-card">
-          <p className="perspective-card-label">Recruiter Perspective</p>
-          <p>{feedback.recruiterPerspective}</p>
-        </div>
-        <div className="perspective-card">
-          <p className="perspective-card-label">ATS Perspective</p>
-          <p>{feedback.atsPerspective}</p>
-        </div>
-      </div>
+      <h3 className="roadmap-section-heading">ATS Perspective</h3>
+      <RevealOnScroll className="perspective-card">
+        <p>{feedback.atsPerspective}</p>
+      </RevealOnScroll>
 
-      <div className="feedback-section">
-        <h3>Suggestions</h3>
+      <h3 className="roadmap-section-heading">Suggestions</h3>
+      <RevealOnScroll className="feedback-section">
         <ul className="feedback-list">
           {feedback.suggestions.map((s, i) => <li key={i}>{s}</li>)}
         </ul>
-      </div>
+      </RevealOnScroll>
     </div>
   )
 }

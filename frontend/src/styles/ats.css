@@ -196,6 +196,107 @@
   margin-bottom: var(--space-2);
 }
 
+/* === Hero band (mirrors roadmap.css) === */
+.ats-hero {
+  text-align: center;
+  padding: var(--space-7) 0 var(--space-6);
+}
+
+.ats-hero-eyebrow {
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  background-color: var(--color-accent-muted);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.ats-hero-title {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-6);
+}
+
+.ats-hero-ring-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-3);
+  animation: ringRevealLarge 800ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* === Score constellation === */
+.ats-constellation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-6);
+  margin-bottom: var(--space-7);
+}
+
+/* === Scorecard (sections + keywords side by side) === */
+.ats-scorecard {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: var(--space-5);
+  margin-bottom: var(--space-7);
+}
+
+.scorecard-panel {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+
+.scorecard-panel-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+/* === Scroll-reveal for feedback sections === */
+.ats-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ats-reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ats-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .ats-hero-ring-wrap {
+    animation: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .ats-scorecard {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .ats-hero-title {
+    font-size: 1.75rem;
+  }
+}
+
 @media (max-width: 768px) {
   .ats-score-grid,
   .ats-sub-scores,

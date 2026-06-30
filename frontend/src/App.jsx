@@ -7,9 +7,12 @@ import Resumes from './pages/Resumes'
 import Interview from './pages/Interview'
 import AtsChecker from './pages/AtsChecker'
 import AtsReport from './pages/AtsReport'
+import CareerRoadmap from './pages/CareerRoadmap'
+import RoadmapResult from './pages/RoadmapResult'
 import Candidates from './pages/Candidates'
 import CandidateDetail from './pages/CandidateDetail'
 import Rankings from './pages/Rankings'
+import ThreeTest from './pages/ThreeTest'
 import ProtectedRoute from './components/ProtectedRoute'
 import GuestRoute from './components/GuestRoute'
 
@@ -18,6 +21,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Landing />} />
+
         <Route
           path="/login"
           element={
@@ -26,6 +30,7 @@ function App() {
             </GuestRoute>
           }
         />
+
         <Route
           path="/signup"
           element={
@@ -34,6 +39,7 @@ function App() {
             </GuestRoute>
           }
         />
+
         <Route
           path="/dashboard"
           element={
@@ -42,6 +48,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/resumes"
           element={
@@ -50,6 +57,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/interview/:id"
           element={
@@ -58,6 +66,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/ats"
           element={
@@ -66,6 +75,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/ats/:id"
           element={
@@ -74,6 +84,25 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/career-roadmap"
+          element={
+            <ProtectedRoute allowedRoles={['candidate']}>
+              <CareerRoadmap />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/career-roadmap/:id"
+          element={
+            <ProtectedRoute allowedRoles={['candidate']}>
+              <RoadmapResult />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/candidates"
           element={
@@ -82,6 +111,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/candidates/:id"
           element={
@@ -90,6 +120,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/rankings"
           element={
@@ -98,6 +129,9 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        {/* 3D Testing Page */}
+        <Route path="/three-test" element={<ThreeTest />} />
       </Routes>
     </BrowserRouter>
   )

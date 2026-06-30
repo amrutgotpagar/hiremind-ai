@@ -163,4 +163,96 @@ ${hasJD ? `\nJob Description:\n"""\n${jobDescriptionText}\n"""` : ''}
   }
 };
 
-module.exports = { generateInterviewQuestions, evaluateAnswers, generateAtsFeedback };
+const generateCareerRoadmap = async (profile) => {
+  const {
+    targetCompany,
+    targetRole,
+    currentSkills,
+    currentProjects,
+    experienceLevel,
+    graduationYear,
+    weeklyStudyHours,
+  } = profile;
+
+  const prompt = `
+You are a senior technical career coach who has helped many candidates get hired at ${targetCompany}.
+
+Analyze this candidate's profile for a ${targetRole} role and generate a structured, realistic, personalized roadmap. Calibrate your expectations specifically to ${targetCompany}'s actual interview process, technical bar, and culture — not generic advice. Give honest assessments, not inflated ones.
+
+Candidate profile:
+- Current skills: ${currentSkills.join(', ') || 'none listed'}
+- Current projects: ${currentProjects || 'none listed'}
+- Experience level: ${experienceLevel}
+- Graduation year: ${graduationYear}
+- Available study time: ${weeklyStudyHours} hours/week
+
+Generate:
+1. readinessScore: 0-100, how ready this candidate is for ${targetCompany} right now
+2. skillAssessment: 2-3 sentences on their current standing
+3. missingSkills: array of objects, each with a "skill" (specific skill/technology they need) and an "urgency" rating of exactly "critical", "important", or "nice-to-have" based on how essential that skill is for ${targetCompany}'s ${targetRole} interviews specifically
+4. phases: an array of roadmap phases (choose however many genuinely make sense for this candidate — typically 3-5). Each phase needs:
+   - phaseNumber
+   - title
+   - topics (array of strings)
+   - estimatedWeeks (number, calibrated to their weekly study hours)
+   - recommendedProjects (array of strings, specific project ideas)
+   - recommendedCertifications (array of strings, can be empty if none are relevant)
+5. interviewPrepPlan: 2-3 sentences describing how they should prepare for ${targetCompany}'s specific interview process
+6. totalTimelineWeeks: sum of all phase durations
+7. dailyStudyPlan: 1-2 sentences on how to structure a typical study day
+8. weeklyGoals: array of 3-5 short weekly goal strings
+9. monthlyMilestones: array of 3-5 short milestone strings
+
+Rules:
+- Return ONLY valid JSON, no markdown, no code fences, no explanation outside the JSON.
+- Double-check every array uses square brackets [ ] and every object uses curly braces { } — do not mix them up.
+- Exact format:
+{
+  "readinessScore": 0,
+  "skillAssessment": "...",
+  "missingSkills": [
+    { "skill": "...", "urgency": "critical" }
+  ],
+  "phases": [
+    {
+      "phaseNumber": 1,
+      "title": "...",
+      "topics": ["..."],
+      "estimatedWeeks": 0,
+      "recommendedProjects": ["..."],
+      "recommendedCertifications": ["..."]
+    }
+  ],
+  "interviewPrepPlan": "...",
+  "totalTimelineWeeks": 0,
+  "dailyStudyPlan": "...",
+  "weeklyGoals": ["..."],
+  "monthlyMilestones": ["..."]
+}
+`;
+
+  const MAX_ATTEMPTS = 2;
+  let lastError;
+
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: prompt,
+    });
+
+    const rawText = cleanJsonResponse(response.text);
+
+    try {
+      const result = JSON.parse(rawText);
+      if (!result.phases || !Array.isArray(result.phases)) {
+        throw new Error('Missing or invalid phases array');
+      }
+      return result;
+    } catch (parseError) {
+      lastError = new Error(`Failed to parse Gemini roadmap response: ${rawText}`);
+    }
+  }
+
+  throw lastError;
+};
+module.exports = { generateInterviewQuestions, evaluateAnswers, generateCareerRoadmap,  generateAtsFeedback };

@@ -8,6 +8,8 @@ const interviewRoutes = require('./routes/interviewRoutes');
 const hrRoutes = require('./routes/hrRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const atsRoutes = require('./routes/atsRoutes');
+const careerRoadmapRoutes = require('./routes/careerRoadmapRoutes');
+
 
 // Connect to MongoDB
 connectDB();
@@ -47,6 +49,7 @@ app.use('/api/resumes', resumeRoutes);
 app.use('/api/interviews', interviewRoutes);
 app.use('/api/hr', hrRoutes);
 app.use('/api/ats', atsRoutes);
+app.use('/api/career-roadmap', careerRoadmapRoutes);
 
 // Error handler — must be last
 app.use(errorHandler);

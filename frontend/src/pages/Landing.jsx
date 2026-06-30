@@ -2,6 +2,7 @@ import { useEffect, Fragment } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import NeuralHero from '../components/NeuralHero'
 
 const pipelineSteps = [
   {
@@ -58,6 +59,9 @@ function Landing() {
           Upload your resume, let AI generate questions tailored to your experience,
           and get scored feedback before you walk into the real thing.
         </p>
+
+        <NeuralHero />
+
         <div className="hero-actions">
           <Link to="/signup" className="hero-cta-primary">
             Start Practicing →
